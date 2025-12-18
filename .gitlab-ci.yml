@@ -1,0 +1,23 @@
+stages:
+  - test
+  - deploy
+
+test-php:
+  stage: test
+  image: php:5.6
+  script:
+    - echo "🔍 Testing PHP syntax..."
+    - php -l testdb.php
+    - echo "✅ PHP syntax is correct!"
+  only:
+    - main
+
+deploy-info:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - echo "🚀 Application ready for deployment!"
+    - echo "📡 URL sẽ là: http://[server-ip]:8888/testdb.php"
+    - echo "🛠️ Để deploy thật, cần cấu hình GitLab Runner trên server"
+  only:
+    - main
