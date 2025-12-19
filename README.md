@@ -1,7 +1,7 @@
 # 🚀 Bài Tập PTPMNM - GitHub CI/CD
 
 ## 📌 Thông tin sinh viên
-- **MSSV:** DH52201115
+- **MSSV:** DH52200964
 - **Môn học:** Phát triển phần mềm mã nguồn mở
 - **Bài tập:** Triển khai CI/CD với GitHub Actions
 
