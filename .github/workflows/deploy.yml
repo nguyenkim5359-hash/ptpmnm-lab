@@ -1,70 +1,42 @@
-name: 🚀 Deploy to Vercel
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
-  workflow_dispatch:
+    branches: ["main"]
+  workflow_dispatch:  # Cho phép chạy thủ công
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
-  validate:
+  build:
     runs-on: ubuntu-latest
-    name: 🔍 Validate Code
-    
     steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v3
-    
-    - name: 🔎 Kiểm tra MSSV
-      run: |
-        echo "=== KIỂM TRA MSSV DH52200964 ==="
-        if grep -q "DH52200964" index.html; then
-          echo "✅ MSSV DH52200964 FOUND IN CODE"
-          echo "✅ Student: DH52200964 - Validated"
-        else
-          echo "❌ MSSV NOT FOUND"
-          exit 1
-        fi
-    
-    - name: 📊 Hiển thị thông tin
-      run: |
-        echo "=== DEPLOYMENT INFO ==="
-        echo "Repository: ${{ github.repository }}"
-        echo "Branch: ${{ github.ref }}"
-        echo "Commit SHA: ${{ github.sha }}"
-        echo "Triggered by: ${{ github.actor }}"
-        echo "Timestamp: $(date '+%Y-%m-%d %H:%M:%S')"
-        echo "MSSV: DH52200964"
-        echo "Project: PTPMNM GitHub CI/CD"
-
+      - name: Checkout
+        uses: actions/checkout@v4  # Dùng v4
+        
+      - name: Kiểm tra file
+        run: |
+          ls -la
+          echo "MSSV: DH52200893"
+          
+      - name: Setup Pages
+        uses: actions/configure-pages@v4  # Dùng v4
+        
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3  # Dùng v3 (phiên bản mới nhất của upload-pages-artifact)
+        with:
+          path: '.'  # Upload toàn bộ thư mục hiện tại
+          
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    name: 🚀 Deploy to Vercel
-    needs: validate
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-    
+    needs: build
     steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v3
-    
-    - name: 🚀 Deploy to Vercel
-      uses: amondnet/vercel-action@v20
-      with:
-        vercel-token: ${{ secrets.VERCEL_TOKEN }}
-        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-        vercel-args: '--prod --confirm'
-    
-    - name: ✅ Hiển thị kết quả
-      run: |
-        echo "========================================"
-        echo "        🎉 DEPLOYMENT COMPLETED         "
-        echo "========================================"
-        echo "✅ Code validation: PASSED"
-        echo "✅ MSSV check: PASSED (DH52200964)"
-        echo "✅ Vercel deployment: SUCCESS"
-        echo "👨‍🎓 Student ID: DH52200964"
-        echo "📅 Time: $(date '+%Y-%m-%d %H:%M:%S')"
-        echo "🔗 URL: Check Vercel Dashboard"
-        echo "========================================"
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4  # Dùng v4
