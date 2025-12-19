@@ -18,10 +18,10 @@ jobs:
     
     - name: 🔎 Kiểm tra MSSV
       run: |
-        echo "=== KIỂM TRA MSSV DH52201115 ==="
-        if grep -q "DH52201115" index.html; then
-          echo "✅ MSSV DH52201115 FOUND IN CODE"
-          echo "✅ Student: DH52201115 - Validated"
+        echo "=== KIỂM TRA MSSV DH52200964 ==="
+        if grep -q "DH52200964" index.html; then
+          echo "✅ MSSV DH52200964 FOUND IN CODE"
+          echo "✅ Student: DH52200964 - Validated"
         else
           echo "❌ MSSV NOT FOUND"
           exit 1
@@ -35,7 +35,7 @@ jobs:
         echo "Commit SHA: ${{ github.sha }}"
         echo "Triggered by: ${{ github.actor }}"
         echo "Timestamp: $(date '+%Y-%m-%d %H:%M:%S')"
-        echo "MSSV: DH52201115"
+        echo "MSSV: DH52200964"
         echo "Project: PTPMNM GitHub CI/CD"
 
   deploy:
@@ -62,9 +62,9 @@ jobs:
         echo "        🎉 DEPLOYMENT COMPLETED         "
         echo "========================================"
         echo "✅ Code validation: PASSED"
-        echo "✅ MSSV check: PASSED (DH52201115)"
+        echo "✅ MSSV check: PASSED (DH52200964)"
         echo "✅ Vercel deployment: SUCCESS"
-        echo "👨‍🎓 Student ID: DH52201115"
+        echo "👨‍🎓 Student ID: DH52200964"
         echo "📅 Time: $(date '+%Y-%m-%d %H:%M:%S')"
         echo "🔗 URL: Check Vercel Dashboard"
         echo "========================================"
